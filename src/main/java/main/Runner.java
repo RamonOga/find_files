@@ -1,15 +1,18 @@
 package main;
 
-import java.io.File;
-import java.nio.file.FileVisitor;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Runner {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Validate validate = new Validate(args);
-        System.out.println(validate.getDirectory());
-        System.out.println(validate.getFileName());
-        System.out.println(validate.getFindType());
-        System.out.println(validate.getLogName());
+        FindVisitor findVisitor = new FindVisitor(validate.getFindType(), validate.getFileName());
+        Files.walkFileTree(validate.getDirectory(), findVisitor);
+
+        for (Path p : findVisitor.getFindList()) {
+            System.out.println(p.toString());
+        }
 
     }
 }
