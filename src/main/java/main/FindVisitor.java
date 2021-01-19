@@ -2,46 +2,24 @@ package main;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class FindVisitor implements FileVisitor<Path> {
+public class FindVisitor extends SimpleFileVisitor<Path> {
+    ConditionFactory conFac = new ConditionFactory();
     private List<Path> findList = new ArrayList<>();
-    private Predicate<String> predicate;
+    Predicate<Path> predicate;
 
     public FindVisitor(final String findType,final String fileName) {
-        if (findType.equals("f ")) {
-            predicate = new Predicate<String>() {
-                @Override
-                public boolean test(String s) {
-                    return s.equals(fileName);
-                }
-            };
-        }
-        if (findType.equals("m ")) {
-            predicate = new Predicate<String>() {
-                @Override
-                public boolean test(String s) {
-                    return s.endsWith(fileName.split(".")[1]);
-                }
-            };
-        }
+        this.predicate = conFac.createPedicate(findType, fileName);
     }
 
     @Override
     public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
-        return FileVisitResult.CONTINUE;
-    }
-
-    @Override
-    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        if (predicate.test(file.getFileName().toString())) {
-            findList.add(file);
-        }
         return FileVisitResult.CONTINUE;
     }
 
@@ -55,7 +33,17 @@ public class FindVisitor implements FileVisitor<Path> {
         return FileVisitResult.CONTINUE;
     }
 
+    @Override
+    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+        if (predicate.test(file)) {
+            findList.add(file);
+        }
+        return FileVisitResult.CONTINUE;
+    }
+
     public List<Path> getFindList() {
         return findList;
     }
+
+
 }

@@ -65,6 +65,10 @@ public class Validate {
             throw new IllegalArgumentException("Fourth argument must be -o");
         }
     }
-
-
+    public void printFields() {
+        System.out.println(directory);
+        System.out.println(fileName);
+        System.out.println(findType);
+        System.out.println(logName);
+    }
 }
