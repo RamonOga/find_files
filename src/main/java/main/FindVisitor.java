@@ -14,7 +14,7 @@ public class FindVisitor extends SimpleFileVisitor<Path> {
     private List<Path> findList = new ArrayList<>();
     Predicate<Path> predicate;
 
-    public FindVisitor(final String findType,final String fileName) {
+    public FindVisitor(final String findType, final String fileName) {
         this.predicate = conFac.createPedicate(findType, fileName);
     }
 
@@ -45,5 +45,13 @@ public class FindVisitor extends SimpleFileVisitor<Path> {
         return findList;
     }
 
-
+    public void printList() {
+        if (findList.size() < 1) {
+            System.out.println("Sorry, but your file was not found");
+        } else {
+            for (Path p : findList) {
+                System.out.println(p.toString());
+            }
+        }
+    }
 }

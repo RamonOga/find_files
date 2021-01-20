@@ -12,10 +12,6 @@ public class Runner {
         Files.walkFileTree(validate.getDirectory(), findVisitor);
         LogWriter logWriter = new LogWriter(validate.getLogName());
         logWriter.writeLog(findVisitor.getFindList());
-
-        for (Path p : findVisitor.getFindList()) {
-            System.out.println(p.toString());
-        }
-
+        findVisitor.printList();
     }
 }

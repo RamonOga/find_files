@@ -14,7 +14,7 @@ public class LogWriter {
     }
 
     public void writeLog(List<Path> pathList) {
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(".\\src\\main\\java\\data\\" + logFile))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(".\\src\\main\\java\\data\\" + logFile))) {
             for (Path path : pathList) {
                 bw.write(path.toString());
                 bw.write(System.lineSeparator());

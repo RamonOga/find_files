@@ -44,31 +44,41 @@ public class Validate {
     }
 
     private void fillAllFields(String[] args) {
+        if (args.length < 5) {
+            exceptionThrow("Enter arguments. For example: java -jar \"find_files.java\""
+                    + " -d \"your directory\" - n \"name file\" -m(search ин mask) or -f(search ) -o \"name your log file\"");
+        }
+
         if (args[1].charAt(0) == 'd') {
             directory = Path.of(args[1].split(" ")[1]);
         } else {
-            throw new IllegalArgumentException("First argument must be -d");
+            exceptionThrow("First argument must be -d");
         }
         if (args[2].charAt(0) == 'n') {
             fileName = args[2].split(" ")[1];
         } else {
-            throw new IllegalArgumentException("Second argument must be -d");
+            exceptionThrow("Second argument must be -d");
         }
         if (args[3].equals("m ") || args[3].equals("f ") || args[3].equals("r ")) {
             findType = args[3];
         } else {
-            throw new IllegalArgumentException("Third argument must be -m or -f or -r");
+            exceptionThrow("Third argument must be -m or -f or -r");
         }
         if (args[4].charAt(0) == 'o') {
             logName = args[4].split(" ")[1];
         } else {
-            throw new IllegalArgumentException("Fourth argument must be -o");
+            exceptionThrow("Fourth argument must be -o");
         }
     }
+
     public void printFields() {
         System.out.println(directory);
         System.out.println(fileName);
         System.out.println(findType);
         System.out.println(logName);
+    }
+
+    private void exceptionThrow(String text) {
+        throw new IllegalArgumentException(text);
     }
 }
