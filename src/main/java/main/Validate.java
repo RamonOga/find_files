@@ -41,7 +41,7 @@ public class Validate {
     private void fillAllFields(String[] args) {
         if (args.length < 5) {
             exceptionThrow("Enter arguments. For example: java -jar \"find_files.java\""
-                    + " -d \"your directory\" - n \"name file\" -m(search ин mask) or -f(search ) -o \"name your log file\"");
+                    + " -d \"your directory\" - n \"name file\" -m(search by mask) or -f(search ) -o \"name your log file\"");
         }
 
         if (args[1].charAt(0) == 'd') {
