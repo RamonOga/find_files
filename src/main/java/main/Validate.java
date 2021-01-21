@@ -2,11 +2,6 @@ package main;
 
 import java.nio.file.Path;
 
-/*      -d c:/ -n *.txt -m -o
-        -d - директория, в которой начинать поиск.
-        -n - имя файла, маска, либо регулярное выражение.
-        -m - искать по маске, либо -f - полное совпадение имени. -r регулярное выражение.
-        -o - результат записать в файл.*/
 public class Validate {
     private Path directory;
     private String fileName;

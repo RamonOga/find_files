@@ -29,9 +29,7 @@ public class LogWriter {
     }
 
     private void createFile() {
-        System.out.println("32112");
         try {
-            System.out.println("@@@");
             if(!Files.exists(Path.of(folderPath))) {
                 Files.createDirectories(Path.of(folderPath));
             }
@@ -40,7 +38,6 @@ public class LogWriter {
             e.fillInStackTrace();
         }
         try {
-            System.out.println("!!!");
             if(!Files.exists(Path.of(folderPath + logFile))) {
 
                 Files.createFile(Path.of(folderPath + logFile));
