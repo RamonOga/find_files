@@ -18,16 +18,17 @@ public class RunnerTest {
 
     @Test
     public void findTest() throws IOException {
+
         String[] args = {"-d", "C:\\Users\\User\\AppData\\Local\\Temp", "-n", "*.ghl", "-m", "-o", "log.txt"};
         folder.newFile("file1.ghl");
         folder.newFile("file2.ghl");
         Validate validate = new Validate(args);
-        FindVisitor findVisitor = new FindVisitor(validate.getFindType(), validate.getFileName());
+        ConditionFactory conFac = new ConditionFactory(validate.getFindType(), validate.getFileName());
+        FindVisitor findVisitor = new FindVisitor(conFac.getPredicate());
         Files.walkFileTree(validate.getDirectory(), findVisitor);
         LogWriter logWriter = new LogWriter(validate.getLogName());
         logWriter.writeLog(findVisitor.getFindList());
-        try(BufferedReader br = new BufferedReader(new FileReader
-                ("C:\\projects\\find_files\\src\\main\\java\\data\\log.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\projects\\find_files\\src\\main\\java\\data\\log.txt"))) {
             assertEquals("ghl", br.readLine().split("\\.")[1]);
             assertEquals("ghl", br.readLine().split("\\.")[1]);
 

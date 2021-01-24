@@ -9,38 +9,16 @@ import java.util.List;
 
 public class LogWriter {
     private final String logFile;
-    private final String folderPath = ".\\src\\main\\java\\data\\";
 
     public  LogWriter(String logFile) {
         this.logFile = logFile;
     }
 
     public void writeLog(List<Path> pathList) {
-        createFile();
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(folderPath + logFile))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(logFile))) {
             for (Path path : pathList) {
                 bw.write(path.toString());
                 bw.write(System.lineSeparator());
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.fillInStackTrace();
-        }
-    }
-
-    private void createFile() {
-        try {
-            if(!Files.exists(Path.of(folderPath))) {
-                Files.createDirectories(Path.of(folderPath));
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.fillInStackTrace();
-        }
-        try {
-            if(!Files.exists(Path.of(folderPath + logFile))) {
-
-                Files.createFile(Path.of(folderPath + logFile));
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());

@@ -4,8 +4,13 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 public class ConditionFactory {
-    public Predicate<Path> createPedicate(final String findType, final String fileName) {
-        Predicate<Path> predicate = null;
+    private Predicate<Path> predicate;
+
+    public ConditionFactory(String findType, String fileName) {
+        createPedicate(findType, fileName);
+    }
+
+    private void createPedicate(final String findType, final String fileName) {
         if (findType.equals("f ")) {
             predicate = s -> s.getFileName()
                     .toString()
@@ -16,6 +21,11 @@ public class ConditionFactory {
                     .toString()
                     .endsWith(fileName.split("\\.")[1]);
                 }
-        return predicate;
         }
+
+    public Predicate<Path> getPredicate() {
+        return predicate;
     }
+
+}
+

@@ -10,27 +10,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class FindVisitor extends SimpleFileVisitor<Path> {
-    ConditionFactory conFac = new ConditionFactory();
     private List<Path> findList = new ArrayList<>();
     Predicate<Path> predicate;
 
-    public FindVisitor(final String findType, final String fileName) {
-        this.predicate = conFac.createPedicate(findType, fileName);
-    }
-
-    @Override
-    public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-        return FileVisitResult.CONTINUE;
-    }
-
-    @Override
-    public FileVisitResult visitFileFailed(Path file, IOException exc) {
-        return FileVisitResult.CONTINUE;
-    }
-
-    @Override
-    public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
-        return FileVisitResult.CONTINUE;
+    public FindVisitor(Predicate<Path> pred) {
+        this.predicate = pred;
     }
 
     @Override
