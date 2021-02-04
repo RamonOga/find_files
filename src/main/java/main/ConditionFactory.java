@@ -11,12 +11,12 @@ public class ConditionFactory {
     }
 
     private void createPedicate(final String findType, final String fileName) {
-        if (findType.equals("f ")) {
+        if (findType.equals("-f")) {
             predicate = s -> s.getFileName()
                     .toString()
                     .equals(fileName);
         }
-        if (findType.equals("m ")) {
+        if (findType.equals("-m")) {
             predicate = s -> s.getFileName()
                     .toString()
                     .endsWith(fileName.split("\\.")[1]);
@@ -24,7 +24,11 @@ public class ConditionFactory {
         }
 
     public Predicate<Path> getPredicate() {
-        return predicate;
+        if (predicate != null) {
+            return predicate;
+        } else  {
+            throw new IllegalArgumentException("Predicate must not be zero");
+        }
     }
 
 }
